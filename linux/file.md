@@ -20,6 +20,11 @@ This page provides a quick reference for Linux commands related to file and dire
 | `ln` | Create hard or symbolic links | [Details](./file/ln.md) |
 | `chmod` | Change file or directory permissions | [Details](./file/chmod.md) |
 | `chown` | Change file or directory ownership | [Details](./file/chown.md) |
+| `du` | Estimate file and directory disk usage | [Details](./file/du.md) |
+| `stat` | Display detailed file or filesystem status | [Details](./file/stat.md) |
+| `file` | Determine file type | [Details](./file/file.md) |
+| `head` | Display the first part of files | [Details](./file/head.md) |
+| `tail` | Display the last part of files | [Details](./file/tail.md) |
 
 ## References
 - [GNU Coreutils Documentation](https://www.gnu.org/software/coreutils/manual/coreutils.html) (for `ls`, `cp`, `mv`, `rm`, etc.)
