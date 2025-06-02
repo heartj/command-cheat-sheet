@@ -7,14 +7,18 @@ Welcome to the Command Cheat Sheet! This is a collection of commonly used comman
 ### Linux Commands
 Linux commands are subdivided by function, covering system management, file operations, networking, and utilities.
 
-- **[System](./linux/system.md)**: System monitoring and management commands
-  - `top`, `htop`, `ps`, `df`, `du`, `free`
 - **[File](./linux/file.md)**: File and directory operation commands
   - `find`, `ls`, `cp`, `mv`, `rm`, `tar`
 - **[Network](./linux/network.md)**: Network-related commands
   - `curl`, `wget`, `ping`, `netstat`, `nslookup`, `dig`
-- **[Utilities](./linux/utilities.md)**: Other useful Linux utilities
-  - `grep`, `awk`, `sed`, `cut`, `sort`, `uniq`
+- **[User](./linux/user.md)**: User account, group, permission, and password policy management commands
+  - `useradd`, `passwd`, `sudo`, `chage`
+- **[System](./linux/system.md)**: System monitoring and management commands
+  - `top`, `htop`, `df`, `du`, `free`, `systemctl`
+- **[Process](./linux/process.md)**: Process management commands
+  - `ps`, `kill`, `nice`, `jobs`
+- **[Utilities](./linux/utilities.md)**: General-purpose utility commands for text processing and data manipulation
+  - `grep`, `awk`, `sed`, `sort`
 
 ### Programming Language Commands
 Commands related to programming languages, covering development, building, and package management.
