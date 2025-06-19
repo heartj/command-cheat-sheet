@@ -1,0 +1,27 @@
+# {{category}} Commands
+
+{{description}}
+
+[Back to Main Index](../../README.md)
+
+## Commands
+
+| Command | Purpose | Link |
+|---------|---------|------|
+{% for command in commands %}
+| `{{command.name}}` | {{command.purpose}} | [Details](./{{command.name}}.md) |
+{% endfor %}
+
+## References
+- [GNU Coreutils Documentation](https://www.gnu.org/software/coreutils/manual/coreutils.html)
+{% for command in commands %}
+{% for ref in command.references %}
+- [{{ref.text}}]({{ref.url}})
+{% endfor %}
+{% endfor %}
+
+## Notes
+- Use `man <command>` for detailed documentation.
+- Some commands require root privileges (e.g., `sudo`).
+
+[Back to Main Index](../../README.md)
