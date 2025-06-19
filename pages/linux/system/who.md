@@ -1,39 +1,38 @@
 # who Command
 
-The `who` command shows information about currently logged-in users, including their username, terminal, and login time.
+Show currently logged-in users
 
-[Back to System Commands](../system.md) | [Back to Main Index](../../README.md)
+[Back to System Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
 | Option | Description |
 |--------|-------------|
 | `-a` | Display all information, including system boot time |
-| `-b` | Show last system boot time |
 | `-u` | Show idle time for each user |
+| `-b` | Show last system boot time |
 | `-H` | Display column headers |
+| `-q` | Show only usernames and user count |
 
 ## Examples
+1. **Run command**:
+```bash
+who
+```
+Output: Shows username, terminal, and login time (e.g., `alice pts/0 2023-06-01 10:00`)
 
-1. **List logged-in users**:
-   ```bash
-   who
-   ```
-   Output: Shows username, terminal, and login time (e.g., `alice pts/0 2023-06-01 10:00`).
+2. **Run command**:
+```bash
+who -aH
+```
+Output: Detailed table with boot time, users, and idle status
 
-2. **Show all details with headers**:
-   ```bash
-   who -aH
-   ```
-   Output: Detailed table with boot time, users, and idle status.
 
 ## Notes
 - No root privileges required.
-- Combine with `w` for more detailed session info.
-- Useful for monitoring user activity on servers.
+- Combine with `w` for detailed session info.
 
 ## References
 - [man who](https://man7.org/linux/man-pages/man1/who.1.html)
-- [GNU Coreutils Documentation](https://www.gnu.org/software/coreutils/)
 
-[Back to System Commands](../system.md) | [Back to Main Index](../../README.md)
+[Back to System Commands](../index.md) | [Back to Main Index](../../README.md)

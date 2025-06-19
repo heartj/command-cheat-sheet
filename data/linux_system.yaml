@@ -1,0 +1,401 @@
+category: System
+description: System monitoring and management commands
+commands:
+  - name: top
+    purpose: Display system processes and resource usage in real-time
+    options:
+      - flag: -d <seconds>
+        description: Set the delay between updates (e.g., -d 1 for 1-second intervals)
+      - flag: -p <pid>
+        description: Monitor specific process IDs (e.g., -p 1234)
+      - flag: -u <user>
+        description: Show processes for a specific user (e.g., -u alice)
+      - flag: -b
+        description: Run in batch mode, suitable for output redirection
+      - flag: -n <number>
+        description: Limit the number of iterations (e.g., -n 5 for 5 updates)
+    examples:
+      - command: top -d 2
+        output: Updates the display every 2 seconds, showing CPU, memory, and process details
+      - command: top -u alice
+        output: Shows only processes owned by user `alice`
+    notes:
+      - Press `q` to quit `top`.
+      - High CPU or memory usage may indicate a bottleneck.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/top.1.html
+        text: man top
+  - name: systemctl
+    purpose: Manage systemd services and units (start, stop, enable)
+    options:
+      - flag: start <unit>
+        description: Start a service or unit (e.g., start sshd)
+      - flag: stop <unit>
+        description: Stop a service or unit
+      - flag: restart <unit>
+        description: Restart a service or unit
+      - flag: status <unit>
+        description: Show the status of a service or unit
+      - flag: enable <unit>
+        description: Enable a unit to start at boot
+      - flag: disable <unit>
+        description: Disable a unit from starting at boot
+    examples:
+      - command: sudo systemctl start sshd
+        output: Starts the SSH daemon, enabling remote access
+      - command: systemctl status nginx
+        output: Displays whether `nginx` is running, with recent logs
+    notes:
+      - Requires root privileges for most operations (use `sudo`).
+      - Be cautious with `stop` on critical services like `sshd`.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/systemctl.1.html
+        text: man systemctl
+  - name: htop
+    purpose: Interactive process viewer with enhanced interface
+    options:
+      - flag: -d <delay>
+        description: Set update delay in tenths of a second (e.g., -d 20 for 2 seconds)
+      - flag: -u <user>
+        description: Show processes for a specific user (e.g., -u john)
+      - flag: -s <column>
+        description: Sort by specified column (e.g., -s CPU)
+      - flag: -C
+        description: Disable color output
+      - flag: -t
+        description: Display processes in tree view
+    examples:
+      - command: htop -d 10
+        output: Displays processes with a 1-second update interval
+      - command: htop -u alice
+        output: Filters processes owned by user `alice`
+    notes:
+      - Press `q` or `F10` to exit.
+      - Requires installation (`sudo apt install htop` on Debian/Ubuntu).
+    references:
+      - url: https://man7.org/linux/man-pages/man1/htop.1.html
+        text: man htop
+  - name: uptime
+    purpose: Show system uptime, user count, and load averages
+    options:
+      - flag: -p
+        description: Display uptime in a human-readable format
+      - flag: -s
+        description: Show system start time
+      - flag: -V
+        description: Display version information
+    examples:
+      - command: uptime
+        output: Shows uptime and load averages (e.g., `12:00:00 up 2 days, 3:15, 1 user`)
+      - command: uptime -p
+        output: Displays `up 2 days, 3 hours, 15 minutes`
+    notes:
+      - Load averages above CPU core count indicate high load.
+      - No root privileges required.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/uptime.1.html
+        text: man uptime
+  - name: df
+    purpose: Report disk space usage for mounted filesystems
+    options:
+      - flag: -h
+        description: Display sizes in human-readable format (e.g., GB, MB)
+      - flag: -T
+        description: Show filesystem type (e.g., ext4)
+      - flag: -t <type>
+        description: Limit to specific filesystem types (e.g., -t ext4)
+      - flag: -x <type>
+        description: Exclude specific filesystem types (e.g., -x tmpfs)
+      - flag: -a
+        description: Include all filesystems, including those with zero blocks
+    examples:
+      - command: df -h
+        output: Lists filesystems with sizes like `10G`, showing total and available space
+      - command: df -t ext4
+        output: Shows only `ext4` filesystems' disk usage
+    notes:
+      - Use `sudo` for restricted filesystems.
+      - Combine with `du` for detailed usage analysis.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/df.1.html
+        text: man df
+  - name: free
+    purpose: Display free and used memory, including physical and swap
+    options:
+      - flag: -h
+        description: Display sizes in human-readable format (e.g., GB, MB)
+      - flag: -s <seconds>
+        description: Continuously update every specified seconds
+      - flag: -m
+        description: Display sizes in megabytes
+      - flag: -g
+        description: Display sizes in gigabytes
+      - flag: -t
+        description: Show total for RAM and swap
+    examples:
+      - command: free -h
+        output: Shows total, used, free, and available memory in GB/MB
+      - command: free -h -s 3
+        output: Updates memory stats every 3 seconds
+    notes:
+      - The `available` column estimates memory for new processes.
+      - Combine with `vmstat` for deeper analysis.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/free.1.html
+        text: man free
+  - name: uname
+    purpose: Display system information (OS, kernel, architecture)
+    options:
+      - flag: -a
+        description: Display all system information
+      - flag: -r
+        description: Show kernel release version
+      - flag: -m
+        description: Show machine hardware name (e.g., x86_64)
+      - flag: -n
+        description: Show network node hostname
+      - flag: -s
+        description: Show kernel name (e.g., Linux)
+    examples:
+      - command: uname -a
+        output: Shows `Linux hostname 5.15.0-73-generic x86_64 GNU/Linux`
+      - command: uname -r
+        output: Displays `5.15.0-73-generic`
+    notes:
+      - No root privileges required.
+      - Useful for scripting system detection.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/uname.1.html
+        text: man uname
+  - name: lscpu
+    purpose: Display CPU architecture details (cores, threads, model)
+    options:
+      - flag: -e
+        description: Display extended CPU information in a table
+      - flag: --parse
+        description: Output parseable format for scripting
+      - flag: -a
+        description: Include all CPUs, including offline ones
+      - flag: -b
+        description: Show only online CPUs
+    examples:
+      - command: lscpu
+        output: Lists CPU model, cores, threads, and frequency
+      - command: lscpu --parse
+        output: Comma-separated CPU data for scripting
+    notes:
+      - No root privileges required.
+      - Combine with `uname` for complete system info.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/lscpu.1.html
+        text: man lscpu
+  - name: lsblk
+    purpose: List block devices (disks, partitions, mount points)
+    options:
+      - flag: -f
+        description: Show filesystem information (type, mount point)
+      - flag: -o <columns>
+        description: Specify output columns (e.g., -o NAME,SIZE)
+      - flag: -a
+        description: Include empty devices
+      - flag: -l
+        description: Use list format instead of tree
+      - flag: -d
+        description: Show only disks, exclude partitions
+    examples:
+      - command: lsblk -f
+        output: Shows device names, filesystem types, and mount points
+      - command: lsblk -o NAME,SIZE,TYPE
+        output: Displays only name, size, and type of devices
+    notes:
+      - Use `sudo` for full device information.
+      - Useful for identifying unmounted partitions.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/lsblk.8.html
+        text: man lsblk
+  - name: dmesg
+    purpose: Display kernel ring buffer logs (hardware, kernel events)
+    options:
+      - flag: -T
+        description: Show human-readable timestamps
+      - flag: --level=<level>
+        description: Filter by log level (e.g., --level=err)
+      - flag: -w
+        description: Follow new messages in real-time
+      - flag: -C
+        description: Clear the kernel ring buffer
+      - flag: -k
+        description: Show only kernel messages
+    examples:
+      - command: dmesg -T
+        output: Displays logs with readable dates and times
+      - command: dmesg -w
+        output: Shows new kernel messages in real-time
+    notes:
+      - Requires `sudo` to clear buffer or access restricted logs.
+      - Use `grep` to filter events (e.g., `dmesg | grep usb`).
+    references:
+      - url: https://man7.org/linux/man-pages/man8/dmesg.8.html
+        text: man dmesg
+  - name: who
+    purpose: Show currently logged-in users
+    options:
+      - flag: -a
+        description: Display all information, including system boot time
+      - flag: -u
+        description: Show idle time for each user
+      - flag: -b
+        description: Show last system boot time
+      - flag: -H
+        description: Display column headers
+      - flag: -q
+        description: Show only usernames and user count
+    examples:
+      - command: who
+        output: Shows username, terminal, and login time (e.g., `alice pts/0 2023-06-01 10:00`)
+      - command: who -aH
+        output: Detailed table with boot time, users, and idle status
+    notes:
+      - No root privileges required.
+      - Combine with `w` for detailed session info.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/who.1.html
+        text: man who
+  - name: crontab
+    purpose: Manage user crontab files for scheduling tasks
+    options:
+      - flag: -e
+        description: Edit the user's crontab file
+      - flag: -l
+        description: List the user's crontab file
+      - flag: -r
+        description: Remove the user's crontab file
+      - flag: -u <user>
+        description: Specify the user for crontab operations (e.g., -u alice)
+    examples:
+      - command: crontab -e
+        output: Opens the crontab file in the default editor to add tasks
+      - command: crontab -l
+        output: Shows scheduled tasks for the current user
+    notes:
+      - Requires `sudo` for other users' crontabs.
+      - Test scripts before scheduling to prevent errors.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/crontab.1.html
+        text: man crontab
+  - name: vmstat
+    purpose: Report virtual memory, CPU, and I/O statistics
+    options:
+      - flag: -s
+        description: Display detailed memory statistics
+      - flag: -d
+        description: Show disk statistics
+      - flag: -w
+        description: Use wide output format
+      - flag: -t
+        description: Include timestamp in output
+      - flag: -a
+        description: Show active and inactive memory
+    examples:
+      - command: vmstat
+        output: Displays memory, swap, CPU, and I/O metrics
+      - command: vmstat 2 5
+        output: Updates stats 5 times, every 2 seconds
+    notes:
+      - Use `sudo` for detailed disk stats.
+      - High swap usage indicates memory pressure.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/vmstat.8.html
+        text: man vmstat
+  - name: iostat
+    purpose: Display CPU and I/O statistics for disk performance
+    options:
+      - flag: -x
+        description: Show extended statistics
+      - flag: -d
+        description: Display only device statistics
+      - flag: -c
+        description: Display only CPU statistics
+      - flag: -k
+        description: Display statistics in kilobytes
+      - flag: -m
+        description: Display statistics in megabytes
+    examples:
+      - command: iostat
+        output: Displays CPU usage and device I/O metrics
+      - command: iostat -x 3 4
+        output: Updates extended disk stats 4 times, every 3 seconds
+    notes:
+      - Requires `sysstat` package (`sudo apt install sysstat`).
+      - High `%iowait` indicates I/O bottlenecks.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/iostat.1.html
+        text: man iostat
+  - name: journalctl
+    purpose: Query and display systemd journal logs
+    options:
+      - flag: -u <unit>
+        description: Show logs for a specific systemd unit (e.g., -u sshd)
+      - flag: -b
+        description: Show logs since last boot
+      - flag: -f
+        description: Follow new log entries in real-time
+      - flag: --since <time>
+        description: Show logs since specified time (e.g., --since "2023-06-01")
+      - flag: --until <time>
+        description: Show logs until specified time
+    examples:
+      - command: journalctl -u nginx
+        output: Displays all logs related to the `nginx` service
+      - command: journalctl -f
+        output: Shows new log entries in real-time
+    notes:
+      - Requires `sudo` for system-wide logs.
+      - Use `--since` and `--until` for time-based filtering.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/journalctl.1.html
+        text: man journalctl
+  - name: hostnamectl
+    purpose: Manage system hostname and related settings
+    options:
+      - flag: set-hostname <name>
+        description: Set the system hostname
+      - flag: status
+        description: Show current hostname and related info
+      - flag: set-icon-name <name>
+        description: Set the system icon name
+      - flag: set-chassis <type>
+        description: Set the chassis type (e.g., server, laptop)
+    examples:
+      - command: sudo hostnamectl set-hostname server1
+        output: Changes the hostname to `server1`
+      - command: hostnamectl status
+        output: Shows static, transient, and pretty hostnames
+    notes:
+      - Requires `sudo` to modify hostnames.
+      - Update `/etc/hosts` to reflect changes.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/hostnamectl.1.html
+        text: man hostnamectl
+  - name: shutdown
+    purpose: Schedule system shutdown or reboot
+    options:
+      - flag: -h
+        description: Halt or power off after shutdown
+      - flag: -r
+        description: Reboot after shutdown
+      - flag: -c
+        description: Cancel a scheduled shutdown
+      - flag: --show
+        description: Show pending shutdown status
+    examples:
+      - command: sudo shutdown -h now
+        output: Powers off the system immediately
+      - command: sudo shutdown -r +10
+        output: Reboots in 10 minutes with a warning broadcast
+    notes:
+      - Requires `sudo`.
+      - Use `-c` to cancel a scheduled shutdown.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/shutdown.8.html
+        text: man shutdown

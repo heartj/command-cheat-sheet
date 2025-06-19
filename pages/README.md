@@ -13,7 +13,7 @@ Linux commands are subdivided by function, covering system management, file oper
   - `curl`, `wget`, `ping`, `netstat`, `nslookup`, `dig`
 - **[User](./linux/user.md)**: User account, group, permission, and password policy management commands
   - `useradd`, `passwd`, `sudo`, `chage`
-- **[System](./linux/system.md)**: System monitoring and management commands
+- **[System](./linux/system/index.md)**: System monitoring and management commands
   - `top`, `htop`, `df`, `du`, `free`, `systemctl`
 - **[Process](./linux/process.md)**: Process management commands
   - `ps`, `kill`, `nice`, `jobs`

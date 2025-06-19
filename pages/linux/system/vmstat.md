@@ -1,8 +1,8 @@
 # vmstat Command
 
-The `vmstat` command reports virtual memory, CPU, and I/O statistics, useful for system performance monitoring.
+Report virtual memory, CPU, and I/O statistics
 
-[Back to System Commands](../system.md) | [Back to Main Index](../../README.md)
+[Back to System Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
@@ -11,29 +11,28 @@ The `vmstat` command reports virtual memory, CPU, and I/O statistics, useful for
 | `-s` | Display detailed memory statistics |
 | `-d` | Show disk statistics |
 | `-w` | Use wide output format |
-| `<delay> <count>` | Update every <delay> seconds for <count> times (e.g., `vmstat 2 5`) |
+| `-t` | Include timestamp in output |
+| `-a` | Show active and inactive memory |
 
 ## Examples
+1. **Run command**:
+```bash
+vmstat
+```
+Output: Displays memory, swap, CPU, and I/O metrics
 
-1. **Show memory and CPU stats**:
-   ```bash
-   vmstat
-   ```
-   Output: Displays memory, swap, CPU, and I/O metrics.
+2. **Run command**:
+```bash
+vmstat 2 5
+```
+Output: Updates stats 5 times, every 2 seconds
 
-2. **Monitor stats every 2 seconds**:
-   ```bash
-   vmstat 2 5
-   ```
-   Output: Updates stats 5 times, every 2 seconds.
 
 ## Notes
-- Use `sudo` for detailed disk stats (`-d`).
-- High `si`/`so` (swap in/out) indicates memory pressure.
-- Combine with `iostat` for deeper I/O analysis.
+- Use `sudo` for detailed disk stats.
+- High swap usage indicates memory pressure.
 
 ## References
 - [man vmstat](https://man7.org/linux/man-pages/man8/vmstat.8.html)
-- [procps Documentation](https://gitlab.com/procps-ng/procps)
 
-[Back to System Commands](../system.md) | [Back to Main Index](../../README.md)
+[Back to System Commands](../index.md) | [Back to Main Index](../../README.md)

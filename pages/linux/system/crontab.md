@@ -1,8 +1,8 @@
 # crontab Command
 
-The `crontab` command manages user crontab files, allowing scheduling of recurring tasks or scripts.
+Manage user crontab files for scheduling tasks
 
-[Back to System Commands](../system.md) | [Back to Main Index](../../README.md)
+[Back to System Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
@@ -11,29 +11,27 @@ The `crontab` command manages user crontab files, allowing scheduling of recurri
 | `-e` | Edit the user's crontab file |
 | `-l` | List the user's crontab file |
 | `-r` | Remove the user's crontab file |
-| `-u <user>` | Specify a user (e.g., `-u john`) |
+| `-u <user>` | Specify the user for crontab operations (e.g., -u alice) |
 
 ## Examples
+1. **Run command**:
+```bash
+crontab -e
+```
+Output: Opens the crontab file in the default editor to add tasks
 
-1. **Edit crontab to schedule a task**:
-   ```bash
-   crontab -e
-   ```
-   Output: Opens the crontab file in the default editor to add tasks (e.g., `0 0 * * * /backup.sh`).
+2. **Run command**:
+```bash
+crontab -l
+```
+Output: Shows scheduled tasks for the current user
 
-2. **List current crontab**:
-   ```bash
-   crontab -l
-   ```
-   Output: Shows scheduled tasks for the current user.
 
 ## Notes
-- Requires `sudo` for other users' crontabs (`-u`).
-- Ensure correct syntax to avoid silent failures (use `man 5 crontab`).
+- Requires `sudo` for other users' crontabs.
 - Test scripts before scheduling to prevent errors.
 
 ## References
 - [man crontab](https://man7.org/linux/man-pages/man1/crontab.1.html)
-- [GNU Coreutils Documentation](https://www.gnu.org/software/coreutils/)
 
-[Back to System Commands](../system.md) | [Back to Main Index](../../README.md)
+[Back to System Commands](../index.md) | [Back to Main Index](../../README.md)

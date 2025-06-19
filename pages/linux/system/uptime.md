@@ -1,38 +1,36 @@
 # uptime Command
 
-The `uptime` command shows how long the system has been running, the number of logged-in users, and the system load averages for the past 1, 5, and 15 minutes.
+Show system uptime, user count, and load averages
 
-[Back to System Commands](../system.md) | [Back to Main Index](../../README.md)
+[Back to System Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
 | Option | Description |
 |--------|-------------|
-| `-p` | Display uptime in a pretty format (e.g., "2 days, 3 hours") |
-| `-s` | Show the system start time |
+| `-p` | Display uptime in a human-readable format |
+| `-s` | Show system start time |
 | `-V` | Display version information |
 
 ## Examples
+1. **Run command**:
+```bash
+uptime
+```
+Output: Shows uptime and load averages (e.g., `12:00:00 up 2 days, 3:15, 1 user`)
 
-1. **Display system uptime and load averages**:
-   ```bash
-   uptime
-   ```
-   Output: `12:00:00 up 2 days,  3:15,  1 user,  load average: 0.25, 0.30, 0.35`
+2. **Run command**:
+```bash
+uptime -p
+```
+Output: Displays `up 2 days, 3 hours, 15 minutes`
 
-2. **Show uptime in human-readable format**:
-   ```bash
-   uptime -p
-   ```
-   Output: `up 2 days, 3 hours, 15 minutes`
 
 ## Notes
-- Load averages indicate system demand; values above CPU core count suggest high load.
-- Combine with `w` or `who` for detailed user information.
+- Load averages above CPU core count indicate high load.
 - No root privileges required.
 
 ## References
 - [man uptime](https://man7.org/linux/man-pages/man1/uptime.1.html)
-- [GNU Coreutils Documentation](https://www.gnu.org/software/coreutils/)
 
-[Back to System Commands](../system.md) | [Back to Main Index](../../README.md)
+[Back to System Commands](../index.md) | [Back to Main Index](../../README.md)
