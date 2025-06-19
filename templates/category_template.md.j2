@@ -8,17 +8,17 @@
 
 | Command | Purpose | Link |
 |---------|---------|------|
-{% for command in commands %}
+{%- for command in commands %}
 | `{{command.name}}` | {{command.purpose}} | [Details](./{{command.name}}.md) |
-{% endfor %}
+{%- endfor %}
 
 ## References
 - [GNU Coreutils Documentation](https://www.gnu.org/software/coreutils/manual/coreutils.html)
-{% for command in commands %}
-{% for ref in command.references %}
+{%- for command in commands %}
+{%- for ref in command.references %}
 - [{{ref.text}}]({{ref.url}})
-{% endfor %}
-{% endfor %}
+{%- endfor %}
+{%- endfor %}
 
 ## Notes
 - Use `man <command>` for detailed documentation.

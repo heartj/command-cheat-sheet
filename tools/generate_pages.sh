@@ -7,7 +7,7 @@
 set -e  # Exit on error
 
 # Prompt for YAML data file
-echo "Enter the path to the YAML data file (e.g., data/linux_system.yaml):"
+echo "Enter the path to the YAML data file (e.g., ../data/linux_system.yaml):"
 read -r yaml_file
 
 # Check if YAML file exists

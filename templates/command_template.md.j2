@@ -2,34 +2,34 @@
 
 {{command.purpose}}
 
-[Back to {{category}} Commands](../index.md) | [Back to Main Index](../../README.md)
+[Back to {{category}} Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
 | Option | Description |
 |--------|-------------|
-{% for option in command.options %}
+{%- for option in command.options %}
 | `{{option.flag}}` | {{option.description}} |
-{% endfor %}
+{%- endfor %}
 
 ## Examples
 
-{% for example in command.examples %}
+{%- for example in command.examples %}
 {{loop.index}}. **Run command**:
 ```bash
 {{example.command}}
 ```
 Output: {{example.output}}
-{% endfor %}
+{%- endfor %}
 
 ## Notes
-{% for note in command.notes %}
+{%- for note in command.notes %}
 - {{note}}
-{% endfor %}
+{%- endfor %}
 
 ## References
-{% for ref in command.references %}
+{%- for ref in command.references %}
 - [{{ref.text}}]({{ref.url}})
-{% endfor %}
+{%- endfor %}
 
 [Back to {{category}} Commands](../index.md) | [Back to Main Index](../../README.md)
