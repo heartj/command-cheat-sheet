@@ -1,0 +1,28 @@
+{
+  "Linux Commands": [
+    {
+      "category": "File",
+	"commands": ["ls", "find", "cp", "mv", "rm", "tar", "cat", "touch", "mkdir", "rmdir", "chmod", "chown", "ln", "du", "wc", "head", "tail", "zip", "unzip"]
+    },
+    {
+      "category": "Network",
+	"commands": ["curl", "wget", "ping", "netstat", "arp", "nc", "ip", "ifconfig", "route", "traceroute", "ss", "tcpdump", "telnet", "nslookup", "dig"]
+    },
+    {
+      "category": "User",
+      "commands": ["useradd", "usermod", "userdel", "groupadd", "groupmod", "groupdel", "passwd", "id", "whoami", "sudo", "su", "chage"]
+    },
+    {
+      "category": "System",
+      "commands": ["top", "htop", "uptime", "df", "free", "uname", "lscpu", "lsblk", "dmesg", "who", "crontab", "systemctl", "vmstat", "iostat", "journalctl", "hostnamectl", "reboot", "shutdown"]
+    },
+    {
+      "category": "Process",
+      "commands": ["ps", "kill", "killall", "pkill", "nice", "renice", "pidof", "jobs", "bg", "fg"]
+    },
+    {
+      "category": "Utilities",
+      "commands": ["grep", "awk", "sed", "cut", "sort", "uniq", "wc", "tee", "xargs"]
+    }
+  ]
+}

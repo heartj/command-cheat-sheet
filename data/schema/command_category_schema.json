@@ -42,7 +42,7 @@
               "required": ["flag", "description"],
               "properties": {
                 "flag": {
-                  "type": "string",
+                  "type": ["string", "number"],
                   "description": "Command option or flag (e.g., -d <seconds>)",
                   "minLength": 1
                 },
