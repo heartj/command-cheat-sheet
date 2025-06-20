@@ -1,39 +1,49 @@
-# Linux `nslookup` Command
+# nslookup Command
 
-The `nslookup` command queries DNS servers to retrieve domain name or IP address information. It is used for troubleshooting DNS resolution issues.
+Query DNS servers to resolve domain names or IP addresses
 
-[Back to Network Commands](../network.md) | [Back to Main Index](../../README.md)
+[Back to Network Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
-| Option | Purpose | Example |
-|--------|---------|---------|
-| `<domain>` | Query DNS for a domain | `nslookup example.com` (Resolve `example.com`) |
-| `-type=<type>` | Specify query type (e.g., A, MX, NS) | `nslookup -type=MX example.com` (Get mail servers) |
-| `-query=<type>` | Alias for `-type` | `nslookup -query=A example.com` (Get A records) |
-| `-timeout=<sec>` | Set query timeout | `nslookup -timeout=5 example.com` (5-second timeout) |
-| `<server>` | Specify DNS server to query | `nslookup example.com 8.8.8.8` (Use Google DNS) |
+| Option | Description |
+|--------|-------------|
+| `-type=<type>` | Specify query type (e.g., -type=MX for mail servers) |
+| `-query=<server>` | Specify DNS server to query (e.g., -query=8.8.8.8) |
+| `-timeout=<seconds>` | Set query timeout |
+| `-debug` | Enable debug output |
 
 ## Examples
-1. **Resolve a domain**:  
-   `nslookup example.com`  
-   Shows IP addresses for `example.com`.
-2. **Query mail servers**:  
-   `nslookup -type=MX example.com`  
-   Lists mail exchanger records for `example.com`.
-3. **Use a specific DNS server**:  
-   `nslookup example.com 1.1.1.1`  
-   Queries Cloudflare’s DNS server.
-4. **Check name servers**:  
-   `nslookup -type=NS example.com`  
-   Lists name servers for `example.com`.
+1. **Run command**:
+```bash
+nslookup example.com
+```
+Output: Resolves `example.com` to its IP address (e.g., 93.184.216.34)
+
+2. **Run command**:
+```bash
+nslookup -type=MX example.com
+```
+Output: Lists mail servers for `example.com`
+
+3. **Run command**:
+```bash
+nslookup -query=8.8.8.8 example.com
+```
+Output: Queries Google DNS (8.8.8.8) for `example.com`
+
+4. **Run command**:
+```bash
+nslookup -type=A www.google.com
+```
+Output: Resolves A record for `www.google.com`
+
 
 ## Notes
-- Interactive mode is available by running `nslookup` without arguments.
-- Consider `dig` for more detailed DNS queries.
-- DNS servers may block excessive queries; use `-timeout` to adjust.
+- Non-interactive mode is preferred for scripting.
+- Use `dig` for more detailed DNS queries.
 
 ## References
 - [man nslookup](https://man7.org/linux/man-pages/man1/nslookup.1.html)
 
-[Back to Network Commands](../network.md) | [Back to Main Index](../../README.md)
+[Back to Network Commands](../index.md) | [Back to Main Index](../../README.md)

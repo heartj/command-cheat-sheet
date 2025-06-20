@@ -9,7 +9,7 @@ Linux commands are subdivided by function, covering system management, file oper
 
 - **[File](./linux/file.md)**: File and directory operation commands
   - `find`, `ls`, `cp`, `mv`, `rm`, `tar`
-- **[Network](./linux/network.md)**: Network-related commands
+- **[Network](./linux/network/index.md)**: Network-related commands
   - `curl`, `wget`, `ping`, `netstat`, `nslookup`, `dig`
 - **[User](./linux/user.md)**: User account, group, permission, and password policy management commands
   - `useradd`, `passwd`, `sudo`, `chage`

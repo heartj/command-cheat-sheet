@@ -1,0 +1,367 @@
+category: Network
+description: Commands for network diagnostics and management
+commands:
+  - name: curl
+    purpose: Transfer data to or from a server using various protocols
+    options:
+      - flag: -o <file>
+        description: Save output to a file
+      - flag: -H <header>
+        description: Add custom HTTP header
+      - flag: -X <method>
+        description: Specify HTTP method (e.g., -X POST)
+      - flag: -d <data>
+        description: Send data in a POST request
+      - flag: -L
+        description: Follow redirects
+    examples:
+      - command: curl https://example.com
+        output: Fetches and displays the content of `example.com`
+      - command: curl -o output.html https://example.com
+        output: Saves `example.com` content to `output.html`
+      - command: curl -X POST -d "key=value" http://api.example.com
+        output: Sends a POST request with data to an API
+      - command: | 
+          curl -H "Authorization: Bearer token" https://api.example.com
+        output: Sends a request with a custom authorization header
+    notes:
+      - Supports HTTP, HTTPS, FTP, and more.
+      - Use `--verbose` for detailed request info.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/curl.1.html
+        text: man curl
+  - name: wget
+    purpose: Download files from the web
+    options:
+      - flag: -O <file>
+        description: Save output to a specific file
+      - flag: -c
+        description: Resume a partially downloaded file
+      - flag: -r
+        description: Recursively download files
+      - flag: -q
+        description: Quiet mode, suppress output
+    examples:
+      - command: wget https://example.com/file.zip
+        output: Downloads `file.zip` to the current directory
+      - command: wget -O custom.zip https://example.com/file.zip
+        output: Saves the file as `custom.zip`
+      - command: wget -c https://example.com/largefile.iso
+        output: Resumes downloading `largefile.iso`
+    notes:
+      - Ideal for batch downloads compared to `curl`.
+      - Use `--limit-rate` to control download speed.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/wget.1.html
+        text: man wget
+  - name: ping
+    purpose: Test network connectivity by sending ICMP echo requests
+    options:
+      - flag: -c <count>
+        description: Specify number of packets to send (e.g., -c 4)
+      - flag: -i <interval>
+        description: Set interval between packets in seconds
+      - flag: -s <size>
+        description: Set packet size in bytes
+      - flag: -t <ttl>
+        description: Set time-to-live for packets
+    examples:
+      - command: ping -c 4 google.com
+        output: Sends 4 packets to `google.com`, shows round-trip times
+      - command: ping -i 0.5 example.com
+        output: Sends packets every 0.5 seconds to `example.com`
+    notes:
+      - Requires `sudo` for some options (e.g., `-s`).
+      - High latency or packet loss indicates network issues.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/ping.8.html
+        text: man ping
+  - name: netstat
+    purpose: Display network connections, routing tables, and interface statistics
+    options:
+      - flag: -t
+        description: Show TCP connections
+      - flag: -u
+        description: Show UDP connections
+      - flag: -l
+        description: Show listening sockets
+      - flag: -n
+        description: Show numerical addresses instead of hostnames
+      - flag: -r
+        description: Show routing table
+    examples:
+      - command: netstat -tuln
+        output: Lists listening TCP and UDP ports with numerical addresses
+      - command: netstat -r
+        output: Displays the kernel routing table
+      - command: netstat -an | grep ESTABLISHED
+        output: Shows established network connections
+    notes:
+      - May require `net-tools` package (`sudo apt install net-tools`).
+      - Replaced by `ss` in modern systems for some use cases.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/netstat.8.html
+        text: man netstat
+  - name: arp
+    purpose: Display or manipulate the ARP cache
+    options:
+      - flag: -a
+        description: Show all ARP entries
+      - flag: -d <address>
+        description: Delete an ARP entry
+      - flag: -s <address> <hwaddr>
+        description: Add a static ARP entry
+      - flag: -n
+        description: Show numerical addresses
+    examples:
+      - command: arp -a
+        output: Displays the ARP table with IP and MAC addresses
+      - command: arp -d 192.168.1.100
+        output: Removes the ARP entry for 192.168.1.100
+    notes:
+      - Requires `sudo` for modifying the ARP cache.
+      - Useful for troubleshooting LAN connectivity.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/arp.8.html
+        text: man arp
+  - name: nc
+    purpose: Establish TCP or UDP connections for network testing
+    options:
+      - flag: -l
+        description: Listen for incoming connections
+      - flag: -u
+        description: Use UDP instead of TCP
+      - flag: -p <port>
+        description: Specify source port
+      - flag: -v
+        description: Verbose output
+    examples:
+      - command: nc -l 12345
+        output: Listens for connections on port 12345
+      - command: nc 192.168.1.100 80
+        output: Connects to port 80 on 192.168.1.100
+      - command: nc -u 8.8.8.8 53
+        output: Sends UDP packets to port 53 on 8.8.8.8
+    notes:
+      - Also known as `netcat`, a versatile networking tool.
+      - Use `Ctrl+C` to exit.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/nc.1.html
+        text: man nc
+  - name: ip
+    purpose: Manage network interfaces, routes, and addresses
+    options:
+      - flag: addr
+        description: Show or manage IP addresses
+      - flag: link
+        description: Show or manage network interfaces
+      - flag: route
+        description: Show or manage routing table
+      - flag: -s
+        description: Show detailed statistics
+    examples:
+      - command: ip addr show
+        output: Lists all network interfaces with IP addresses
+      - command: ip route
+        output: Displays the routing table
+      - command: ip link set eth0 up
+        output: Enables the eth0 interface
+    notes:
+      - Replaces `ifconfig` and `route` in modern systems.
+      - Requires `sudo` for configuration changes.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/ip.8.html
+        text: man ip
+  - name: ifconfig
+    purpose: Configure and display network interfaces
+    options:
+      - flag: -a
+        description: Show all interfaces, including inactive ones
+      - flag: <interface> up
+        description: Activate a network interface
+      - flag: <interface> down
+        description: Deactivate a network interface
+      - flag: <interface> <address>
+        description: Assign an IP address to an interface
+    examples:
+      - command: ifconfig -a
+        output: Shows all network interfaces and their details
+      - command: ifconfig eth0 192.168.1.100
+        output: Assigns IP address 192.168.1.100 to eth0
+    notes:
+      - Deprecated in favor of `ip` in modern systems.
+      - Requires `sudo` for configuration changes.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/ifconfig.8.html
+        text: man ifconfig
+  - name: route
+    purpose: Display or manipulate the IP routing table
+    options:
+      - flag: -n
+        description: Show numerical addresses
+      - flag: add
+        description: Add a new route
+      - flag: del
+        description: Delete a route
+      - flag: -F
+        description: Display FIB routing table
+    examples:
+      - command: route -n
+        output: Shows the routing table with numerical addresses
+      - command: route add default gw 192.168.1.1
+        output: Adds a default gateway via 192.168.1.1
+    notes:
+      - Deprecated in favor of `ip route`.
+      - Requires `sudo` for modifications.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/route.8.html
+        text: man route
+  - name: traceroute
+    purpose: Trace the route packets take to a network host
+    options:
+      - flag: -n
+        description: Show numerical addresses instead of hostnames
+      - flag: -m <max_hops>
+        description: Set maximum number of hops
+      - flag: -w <timeout>
+        description: Set wait timeout for each hop
+      - flag: -I
+        description: Use ICMP ECHO instead of UDP
+    examples:
+      - command: traceroute google.com
+        output: Shows the route to `google.com` with hop details
+      - command: traceroute -n -m 10 example.com
+        output: Traces up to 10 hops to `example.com` with numerical addresses
+    notes:
+      - Requires `sudo` for some options (e.g., `-I`).
+      - Use `mtr` for real-time tracing.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/traceroute.8.html
+        text: man traceroute
+  - name: ss
+    purpose: Display socket statistics for network connections
+    options:
+      - flag: -t
+        description: Show TCP sockets
+      - flag: -u
+        description: Show UDP sockets
+      - flag: -l
+        description: Show listening sockets
+      - flag: -n
+        description: Show numerical addresses
+      - flag: -p
+        description: Show process information
+    examples:
+      - command: ss -tuln
+        output: Lists listening TCP and UDP ports with numerical addresses
+      - command: ss -tanp
+        output: Shows TCP connections with process details
+      - command: ss -u
+        output: Shows UDP sockets
+    notes:
+      - Modern replacement for `netstat`.
+      - Faster and more detailed than `netstat`.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/ss.8.html
+        text: man ss
+  - name: tcpdump
+    purpose: Capture and analyze network packets
+    options:
+      - flag: -i <interface>
+        description: Specify interface to capture (e.g., -i eth0)
+      - flag: -w <file>
+        description: Save packets to a file
+      - flag: -c <count>
+        description: Capture a specific number of packets
+      - flag: -n
+        description: Show numerical addresses
+    examples:
+      - command: tcpdump -i eth0
+        output: Captures packets on the eth0 interface
+      - command: tcpdump -c 10 -w capture.pcap
+        output: Captures 10 packets and saves to `capture.pcap`
+      - command: tcpdump -n port 80
+        output: Captures packets on port 80 with numerical addresses
+    notes:
+      - Requires `sudo` to capture packets.
+      - Use `wireshark` to analyze `.pcap` files.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/tcpdump.8.html
+        text: man tcpdump
+  - name: telnet
+    purpose: Connect to a remote host on a specified port
+    options:
+      - flag: -a
+        description: Attempt automatic login
+      - flag: -l <user>
+        description: Specify user for login
+      - flag: -r
+        description: Emulate rlogin behavior
+    examples:
+      - command: telnet example.com 80
+        output: Connects to `example.com` on port 80
+      - command: telnet -l alice 192.168.1.100 23
+        output: Attempts to connect as `alice` to port 23
+    notes:
+      - Insecure; use `ssh` for secure connections.
+      - Useful for testing port connectivity.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/telnet.1.html
+        text: man telnet
+  - name: nslookup
+    purpose: Query DNS servers to resolve domain names or IP addresses
+    options:
+      - flag: -type=<type>
+        description: Specify query type (e.g., -type=MX for mail servers)
+      - flag: -query=<server>
+        description: Specify DNS server to query (e.g., -query=8.8.8.8)
+      - flag: -timeout=<seconds>
+        description: Set query timeout
+      - flag: -debug
+        description: Enable debug output
+    examples:
+      - command: nslookup example.com
+        output: Resolves `example.com` to its IP address (e.g., 93.184.216.34)
+      - command: nslookup -type=MX example.com
+        output: Lists mail servers for `example.com`
+      - command: nslookup -query=8.8.8.8 example.com
+        output: Queries Google DNS (8.8.8.8) for `example.com`
+      - command: nslookup -type=A www.google.com
+        output: Resolves A record for `www.google.com`
+    notes:
+      - Non-interactive mode is preferred for scripting.
+      - Use `dig` for more detailed DNS queries.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/nslookup.1.html
+        text: man nslookup
+  - name: dig
+    purpose: Perform detailed DNS lookups with flexible output
+    options:
+      - flag: +short
+        description: Display only the answer section
+      - flag: | 
+          @<server>
+        description: Specify DNS server (e.g., @8.8.8.8)
+      - flag: -t <type>
+        description: Specify query type (e.g., -t MX)
+      - flag: -x <ip>
+        description: Perform reverse lookup for an IP address
+      - flag: -4
+        description: Force IPv4 query
+      - flag: -6
+        description: Force IPv6 query
+    examples:
+      - command: dig example.com
+        output: Shows detailed DNS records for `example.com`
+      - command: dig +short example.com
+        output: Displays only the IP address (e.g., 93.184.216.34)
+      - command: dig @8.8.8.8 -t MX example.com
+        output: Queries Google DNS for mail servers of `example.com`
+      - command: dig -x 8.8.8.8
+        output: Performs reverse lookup, returns `dns.google`
+    notes:
+      - Preferred over `nslookup` for advanced DNS troubleshooting.
+      - Use `+short` for concise output in scripts.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/dig.1.html
+        text: man dig

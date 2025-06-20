@@ -1,41 +1,43 @@
-# Linux `tcpdump` Command
+# tcpdump Command
 
-The `tcpdump` command captures and analyzes network packets on a specified interface. It is a powerful tool for troubleshooting network issues and inspecting traffic in real time.
+Capture and analyze network packets
 
-[Back to Network Commands](../network.md) | [Back to Main Index](../../README.md)
+[Back to Network Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
-| Option | Purpose | Example |
-|--------|---------|---------|
-| `-i <interface>` | Capture packets on specific interface | `tcpdump -i eth0` (Capture on `eth0`) |
-| `-c <count>` | Capture a specific number of packets | `tcpdump -c 10` (Capture 10 packets) |
-| `-w <file>` | Write packets to a file | `tcpdump -w capture.pcap` (Save to `capture.pcap`) |
-| `-r <file>` | Read packets from a file | `tcpdump -r capture.pcap` (Read from `capture.pcap`) |
-| `-n` | Show numerical addresses (no DNS) | `tcpdump -n` (Use IPs instead of hostnames) |
-| `-v` | Verbose output | `tcpdump -v` (Show detailed packet info) |
-| `<filter>` | Filter packets by expression | `tcpdump host 8.8.8.8` (Capture packets to/from 8.8.8.8) |
+| Option | Description |
+|--------|-------------|
+| `-i <interface>` | Specify interface to capture (e.g., -i eth0) |
+| `-w <file>` | Save packets to a file |
+| `-c <count>` | Capture a specific number of packets |
+| `-n` | Show numerical addresses |
 
 ## Examples
-1. **Capture packets on an interface**:  
-   `tcpdump -i eth0`  
-   Captures all packets on `eth0` until stopped (`Ctrl+C`).
-2. **Save packets to a file**:  
-   `tcpdump -i eth0 -c 100 -w capture.pcap`  
-   Captures 100 packets on `eth0` and saves to `capture.pcap`.
-3. **Filter HTTP traffic**:  
-   `tcpdump -i eth0 port 80`  
-   Captures packets on port 80 (HTTP).
-4. **Read captured packets**:  
-   `tcpdump -r capture.pcap`  
-   Displays packets from `capture.pcap`.
+1. **Run command**:
+```bash
+tcpdump -i eth0
+```
+Output: Captures packets on the eth0 interface
+
+2. **Run command**:
+```bash
+tcpdump -c 10 -w capture.pcap
+```
+Output: Captures 10 packets and saves to `capture.pcap`
+
+3. **Run command**:
+```bash
+tcpdump -n port 80
+```
+Output: Captures packets on port 80 with numerical addresses
+
 
 ## Notes
-- Requires root privileges (e.g., `sudo tcpdump`).
-- Use Wireshark to analyze `.pcap` files saved with `-w`.
-- Be cautious with large captures, as they can consume significant disk space.
+- Requires `sudo` to capture packets.
+- Use `wireshark` to analyze `.pcap` files.
 
 ## References
-- [tcpdump Manual](https://www.tcpdump.org/manpages/tcpdump.8.html)
+- [man tcpdump](https://man7.org/linux/man-pages/man8/tcpdump.8.html)
 
-[Back to Network Commands](../network.md) | [Back to Main Index](../../README.md)
+[Back to Network Commands](../index.md) | [Back to Main Index](../../README.md)
