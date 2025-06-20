@@ -1,0 +1,214 @@
+category: Process
+description: Commands for managing and monitoring system processes
+commands:
+  - name: ps
+    purpose: Display information about active processes
+    options:
+      - flag: -aux
+        description: Show all processes for all users in BSD format
+      - flag: -ef
+        description: Show all processes in full-format listing
+      - flag: -u <user>
+        description: Show processes for a specific user (e.g., -u alice)
+      - flag: -p <pid>
+        description: Show information for specific process IDs
+      - flag: -o <format>
+        description: Customize output format (e.g., -o pid,comm)
+    examples:
+      - command: ps -aux
+        output: Lists all processes with details like PID, user, and CPU usage
+      - command: ps -ef | grep nginx
+        output: Shows processes related to `nginx`
+      - command: ps -u alice
+        output: Displays processes owned by user `alice`
+      - command: ps -o pid,comm -p 1234
+        output: Shows PID and command name for process ID 1234
+    notes:
+      - Use `kill` to terminate processes by PID.
+      - Combine with `grep` for filtering.
+      - BSD (`aux`) and System V (`-ef`) formats differ in output.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/ps.1.html
+        text: man ps
+  - name: kill
+    purpose: Send signals to processes to terminate or control them
+    options:
+      - flag: -s <signal>
+        description: Specify the signal to send (e.g., -s SIGTERM)
+      - flag: -l
+        description: List all signal names
+      - flag: -9
+        description: Send SIGKILL to forcefully terminate a process
+      - flag: -15
+        description: Send SIGTERM to gracefully terminate a process
+    examples:
+      - command: kill -9 1234
+        output: Forcefully terminates process with PID 1234
+      - command: kill -15 5678
+        output: Requests process with PID 5678 to terminate gracefully
+      - command: kill -l
+        output: Lists available signals (e.g., SIGHUP, SIGTERM, SIGKILL)
+    notes:
+      - Requires `sudo` for processes owned by other users.
+      - Use SIGTERM (-15) before SIGKILL (-9) to allow cleanup.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/kill.1.html
+        text: man kill
+  - name: killall
+    purpose: Terminate processes by name
+    options:
+      - flag: -s <signal>
+        description: Specify the signal to send (e.g., -s SIGTERM)
+      - flag: -u <user>
+        description: Terminate processes owned by a specific user
+      - flag: -i
+        description: Interactively confirm each process before killing
+      - flag: -q
+        description: Quiet mode, suppress output
+    examples:
+      - command: killall nginx
+        output: Terminates all `nginx` processes
+      - command: killall -s SIGKILL firefox
+        output: Forcefully terminates all `firefox` processes
+      - command: killall -u alice
+        output: Terminates all processes owned by user `alice`
+    notes:
+      - Be cautious as it affects all matching processes.
+      - Requires `sudo` for other users' processes.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/killall.1.html
+        text: man killall
+  - name: pkill
+    purpose: Terminate processes by name or other attributes
+    options:
+      - flag: -s <signal>
+        description: Specify the signal to send (e.g., -s SIGTERM)
+      - flag: -u <user>
+        description: Match processes owned by a specific user
+      - flag: -f
+        description: Match against full command line
+      - flag: -n
+        description: Match the newest process
+    examples:
+      - command: pkill nginx
+        output: Terminates all `nginx` processes
+      - command: pkill -u alice
+        output: Terminates all processes owned by user `alice`
+      - command: pkill -f "python script.py"
+        output: Terminates processes matching the full command line
+    notes:
+      - More flexible than `killall` due to pattern matching.
+      - Requires `sudo` for other users' processes.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/pkill.1.html
+        text: man pkill
+  - name: nice
+    purpose: Set the priority of a new process
+    options:
+      - flag: -n <value>
+        description: Specify the nice value (e.g., -n 10, range -20 to 19)
+      - flag: --adjustment=<value>
+        description: Same as -n, set the nice value
+    examples:
+      - command: nice -n 10 tar -czf backup.tar.gz /data
+        output: Runs `tar` with lower priority (nice value 10)
+      - command: nice -n -5 python script.py
+        output: Runs `script.py` with higher priority (nice value -5)
+    notes:
+      - Lower nice values (e.g., -20) increase priority; higher values (e.g., 19) decrease it.
+      - Requires `sudo` for negative nice values.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/nice.1.html
+        text: man nice
+  - name: renice
+    purpose: Alter the priority of running processes
+    options:
+      - flag: -n <value>
+        description: Specify the new nice value (e.g., -n 10)
+      - flag: -p <pid>
+        description: Specify the process ID to adjust
+      - flag: -u <user>
+        description: Adjust all processes for a specific user
+    examples:
+      - command: renice 10 -p 1234
+        output: Sets nice value to 10 for process with PID 1234
+      - command: renice -5 -u alice
+        output: Sets nice value to -5 for all processes owned by `alice`
+    notes:
+      - Requires `sudo` for negative nice values or other users' processes.
+      - Check current nice value with `ps` or `top`.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/renice.1.html
+        text: man renice
+  - name: pidof
+    purpose: Find the process ID of a running program
+    options:
+      - flag: -s
+        description: Return a single PID
+      - flag: -x
+        description: Include scripts (e.g., shell scripts)
+      - flag: -o <pid>
+        description: Omit specified PID
+    examples:
+      - command: pidof nginx
+        output: Returns PIDs of all `nginx` processes (e.g., 1234 5678)
+      - command: pidof -s firefox
+        output: Returns a single PID for `firefox`
+    notes:
+      - Useful for scripting with `kill` or `pkill`.
+      - May return multiple PIDs for multi-process programs.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/pidof.8.html
+        text: man pidof
+  - name: jobs
+    purpose: List active jobs in the current shell session
+    options:
+      - flag: -l
+        description: Show detailed information, including PIDs
+      - flag: -p
+        description: Show only PIDs of jobs
+      - flag: -r
+        description: Show only running jobs
+    examples:
+      - command: jobs
+        output: Lists jobs with their status (e.g., `[1]+ Running sleep 100 &`)
+      - command: jobs -l
+        output: Shows jobs with PIDs and detailed status
+    notes:
+      - Works in interactive shells like bash.
+      - Use `bg` or `fg` to manage listed jobs.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/jobs.1.html
+        text: man jobs
+  - name: bg
+    purpose: Resume a suspended job in the background
+    options:
+      - flag: <job_id>
+        description: Specify the job ID to resume (e.g., %1)
+    examples:
+      - command: bg %1
+        output: Resumes job 1 in the background
+      - command: bg
+        output: Resumes the most recently suspended job
+    notes:
+      - Use `jobs` to find job IDs.
+      - Suspended jobs are created with Ctrl+Z.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/bg.1.html
+        text: man bg
+  - name: fg
+    purpose: Bring a background job to the foreground
+    options:
+      - flag: <job_id>
+        description: Specify the job ID to bring to foreground (e.g., %1)
+    examples:
+      - command: fg %1
+        output: Brings job 1 to the foreground
+      - command: fg
+        output: Brings the most recent background job to the foreground
+    notes:
+      - Use `jobs` to find job IDs.
+      - Ctrl+Z suspends a foreground job.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/fg.1.html
+        text: man fg

@@ -15,7 +15,7 @@ Linux commands are subdivided by function, covering system management, file oper
   - `useradd`, `passwd`, `sudo`, `chage`
 - **[System](./linux/system/index.md)**: System monitoring and management commands
   - `top`, `htop`, `df`, `du`, `free`, `systemctl`
-- **[Process](./linux/process.md)**: Process management commands
+- **[Process](./linux/process/index.md)**: Process management commands
   - `ps`, `kill`, `nice`, `jobs`
 - **[Utilities](./linux/utilities.md)**: General-purpose utility commands for text processing and data manipulation
   - `grep`, `awk`, `sed`, `sort`
