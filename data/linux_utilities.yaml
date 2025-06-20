@@ -1,0 +1,203 @@
+category: Utilities
+description: Commands for text processing and data manipulation
+commands:
+  - name: grep
+    purpose: Search text using patterns
+    options:
+      - flag: -i
+        description: Ignore case distinctions
+      - flag: -r
+        description: Search recursively in directories
+      - flag: -n
+        description: Show line numbers
+      - flag: -v
+        description: Invert match, show non-matching lines
+      - flag: -E
+        description: Use extended regular expressions
+    examples:
+      - command: grep "error" /var/log/syslog
+        output: Shows lines containing "error" in syslog
+      - command: grep -rin "TODO" /src
+        output: Recursively searches for "TODO" in /src with line numbers
+      - command: grep -v "^#" config.txt
+        output: Shows non-comment lines in config.txt
+      - command: grep -E "[0-9]{3}-[0-9]{4}" file.txt
+        output: Matches phone numbers like 123-4567
+    notes:
+      - Use `zgrep` for compressed files.
+      - Combine with pipes (e.g., `ps aux | grep python`).
+    references:
+      - url: https://man7.org/linux/man-pages/man1/grep.1.html
+        text: man grep
+  - name: awk
+    purpose: Process and analyze text using patterns and actions
+    options:
+      - flag: -F <delimiter>
+        description: Specify field separator (e.g., -F ",")
+      - flag: -v <var=value>
+        description: Assign a variable
+      - flag: '{print $n}'
+        description: Print the nth field (e.g., {print $1})
+    examples:
+      - command: awk -F ":" '{print $1}' /etc/passwd
+        output: Prints usernames from /etc/passwd
+      - command: awk '{sum += $1} END {print sum}' numbers.txt
+        output: Sums the first column in numbers.txt
+      - command: awk -v name="alice" '$1 == name {print $0}' users.txt
+        output: Prints lines where first field is "alice"
+    notes:
+      - Powerful for column-based data processing.
+      - Use single quotes to avoid shell interpretation.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/awk.1.html
+        text: man awk
+  - name: sed
+    purpose: Stream editor for text transformation
+    options:
+      - flag: -i
+        description: Edit files in-place
+      - flag: -e <script>
+        description: Specify a script to execute
+      - flag: -n
+        description: Suppress automatic printing
+    examples:
+      - command: sed 's/old/new/g' file.txt
+        output: Replaces all "old" with "new" in file.txt
+      - command: sed -i 's/error/warning/' log.txt
+        output: Replaces "error" with "warning" in log.txt in-place
+      - command: sed -n '10,20p' file.txt
+        output: Prints lines 10 to 20 from file.txt
+    notes:
+      - Use `sed -i.bak` to create a backup.
+      - Common for batch text edits.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/sed.1.html
+        text: man sed
+  - name: cut
+    purpose: Extract sections from lines of text
+    options:
+      - flag: -d <delimiter>
+        description: Specify delimiter (e.g., -d ",")
+      - flag: -f <fields>
+        description: Select fields (e.g., -f 1,3)
+      - flag: -c <characters>
+        description: Select specific characters
+    examples:
+      - command: cut -d ":" -f 1 /etc/passwd
+        output: Extracts usernames from /etc/passwd
+      - command: cut -c 1-10 file.txt
+        output: Extracts first 10 characters of each line in file.txt
+    notes:
+      - Simpler than `awk` for basic field extraction.
+      - Use with pipes (e.g., `ls -l | cut -d " " -f 1`).
+    references:
+      - url: https://man7.org/linux/man-pages/man1/cut.1.html
+        text: man cut
+  - name: sort
+    purpose: Sort lines of text
+    options:
+      - flag: -n
+        description: Sort numerically
+      - flag: -r
+        description: Reverse sort order
+      - flag: -k <field>
+        description: Sort by specific field
+      - flag: -u
+        description: Remove duplicates
+    examples:
+      - command: sort file.txt
+        output: Sorts lines in file.txt alphabetically
+      - command: sort -n numbers.txt
+        output: Sorts numbers.txt numerically
+      - command: sort -k 2 -t "," data.csv
+        output: Sorts data.csv by second field
+    notes:
+      - Case-sensitive by default.
+      - Use with `uniq` to remove duplicates.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/sort.1.html
+        text: man sort
+  - name: uniq
+    purpose: Remove or report duplicate lines
+    options:
+      - flag: -c
+        description: Count occurrences of each line
+      - flag: -i
+        description: Ignore case
+      - flag: -u
+        description: Show only unique lines
+    examples:
+      - command: sort file.txt | uniq
+        output: Removes duplicate lines from sorted file.txt
+      - command: uniq -c data.txt
+        output: Counts occurrences of each line in data.txt
+    notes:
+      - Requires sorted input for proper duplicate removal.
+      - Often used after `sort`.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/uniq.1.html
+        text: man uniq
+  - name: wc
+    purpose: Count lines, words, or characters in files
+    options:
+      - flag: -l
+        description: Count lines
+      - flag: -w
+        description: Count words
+      - flag: -c
+        description: Count bytes
+      - flag: -m
+        description: Count characters
+    examples:
+      - command: wc -l file.txt
+        output: Shows number of lines in file.txt
+      - command: ls | wc -l
+        output: Counts number of files in current directory
+      - command: wc file.txt
+        output: Shows lines, words, and bytes in file.txt
+    notes:
+      - Use with pipes for dynamic input.
+      - Handles multiple files.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/wc.1.html
+        text: man wc
+  - name: tee
+    purpose: Read from standard input and write to standard output and files
+    options:
+      - flag: -a
+        description: Append to files instead of overwriting
+      - flag: -i
+        description: Ignore interrupt signals
+    examples:
+      - command: ls | tee output.txt
+        output: Writes ls output to output.txt and displays it
+      - command: echo "log" | tee -a log.txt
+        output: Appends "log" to log.txt and displays it
+    notes:
+      - Useful for logging pipeline output.
+      - Requires `sudo` for protected files.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/tee.1.html
+        text: man tee
+  - name: xargs
+    purpose: Build and execute commands from standard input
+    options:
+      - flag: -n <number>
+        description: Use at most <number> arguments per command
+      - flag: -I <placeholder>
+        description: Replace placeholder with input
+      - flag: -t
+        description: Print command before execution
+    examples:
+      - command: find . -name "*.txt" | xargs rm
+        output: Deletes all .txt files in current directory
+      - command: echo "file1 file2" | xargs -n 1 ls
+        output: Lists file1 and file2 separately
+      - command: find . -type f | xargs -I {} mv {} /backup
+        output: Moves all files to /backup
+    notes:
+      - Use with `find` for batch operations.
+      - Handle spaces in filenames with `-0`.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/xargs.1.html
+        text: man xargs

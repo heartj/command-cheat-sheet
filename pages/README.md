@@ -17,7 +17,7 @@ Linux commands are subdivided by function, covering system management, file oper
   - `top`, `htop`, `df`, `du`, `free`, `systemctl`
 - **[Process](./linux/process/index.md)**: Process management commands
   - `ps`, `kill`, `nice`, `jobs`
-- **[Utilities](./linux/utilities.md)**: General-purpose utility commands for text processing and data manipulation
+- **[Utilities](./linux/utilities/index.md)**: General-purpose utility commands for text processing and data manipulation
   - `grep`, `awk`, `sed`, `sort`
 
 ### Programming Language Commands
