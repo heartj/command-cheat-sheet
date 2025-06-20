@@ -36,7 +36,7 @@
           "options": {
             "type": "array",
             "description": "List of command options or flags",
-            "minItems": 1,
+            "minItems": 0,
             "items": {
               "type": "object",
               "required": ["flag", "description"],
