@@ -1,40 +1,44 @@
-# Linux `usermod` Command
+# usermod Command
 
-The `usermod` command modifies attributes of an existing user account, such as home directory, shell, or group memberships.
+Modify an existing user account
 
-[Back to User Commands](../user.md) | [Back to Main Index](../../README.md)
+[Back to User Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
-| Option | Purpose | Example |
-|--------|---------|---------|
-| `-d <dir>` | Change home directory | `usermod -d /newhome/john john` (Change home directory) |
-| `-m` | Move home directory contents | `usermod -m -d /newhome/john john` (Move contents) |
-| `-s <shell>` | Change login shell | `usermod -s /bin/zsh john` (Set zsh as shell) |
-| `-g <group>` | Change primary group | `usermod -g developers john` (Change primary group) |
-| `-G <groups>` | Change secondary groups | `usermod -G wheel sudo john` (Set secondary groups) |
-| `-l <newname>` | Change username | `usermod -l john_doe john` (Rename to `john_doe`) |
+| Option | Description |
+|--------|-------------|
+| `-aG <groups>` | Add user to supplementary groups (append) |
+| `-s <shell>` | Change the user's login shell |
+| `-l <newname>` | Change the user's login name |
+| `-L` | Lock the user account |
+| `-U` | Unlock the user account |
 
 ## Examples
-1. **Change a user's shell**:  
-   `sudo usermod -s /bin/bash john`  
-   Sets `bash` as the login shell for `john`.
-2. **Move and change home directory**:  
-   `sudo usermod -m -d /home/john_doe john`  
-   Moves `john`’s home directory to `/home/john_doe`.
-3. **Add user to groups**:  
-   `sudo usermod -aG developers,wheel john`  
-   Adds `john` to `developers` and `wheel` groups (`-a` appends).
-4. **Rename a user**:  
-   `sudo usermod -l john_doe john`  
-   Renames user `john` to `john_doe`.
+1. **Run command**:
+```bash
+usermod -aG docker alice
+```
+Output: Adds alice to the docker group
+
+2. **Run command**:
+```bash
+usermod -s /bin/zsh bob
+```
+Output: Changes bob's shell to zsh
+
+3. **Run command**:
+```bash
+usermod -L alice
+```
+Output: Locks alice's account
+
 
 ## Notes
-- Requires root privileges (`sudo`).
-- Use `-a` with `-G` to append groups, otherwise existing groups are overwritten.
-- Changes may affect running sessions; users may need to log out/in.
+- Requires `sudo` to execute.
+- Use `-a` with `-G` to avoid overwriting groups.
 
 ## References
 - [man usermod](https://man7.org/linux/man-pages/man8/usermod.8.html)
 
-[Back to User Commands](../user.md) | [Back to Main Index](../../README.md)
+[Back to User Commands](../index.md) | [Back to Main Index](../../README.md)

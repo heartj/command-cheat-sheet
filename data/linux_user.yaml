@@ -1,0 +1,243 @@
+category: User
+description: Commands for managing users and groups
+commands:
+  - name: useradd
+    purpose: Create a new user
+    options:
+      - flag: -m
+        description: Create a home directory for the user
+      - flag: -s <shell>
+        description: Specify the user's login shell (e.g., -s /bin/bash)
+      - flag: -G <groups>
+        description: Add user to supplementary groups
+      - flag: -u <uid>
+        description: Specify user ID
+    examples:
+      - command: useradd -m alice
+        output: Creates user alice with a home directory
+      - command: useradd -m -s /bin/zsh -G sudo bob
+        output: Creates user bob with zsh shell and sudo group
+      - command: useradd -u 1001 guest
+        output: Creates user guest with UID 1001
+    notes:
+      - Requires `sudo` to execute.
+      - Use `passwd` to set the user’s password.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/useradd.8.html
+        text: man useradd
+  - name: usermod
+    purpose: Modify an existing user account
+    options:
+      - flag: -aG <groups>
+        description: Add user to supplementary groups (append)
+      - flag: -s <shell>
+        description: Change the user's login shell
+      - flag: -l <newname>
+        description: Change the user's login name
+      - flag: -L
+        description: Lock the user account
+      - flag: -U
+        description: Unlock the user account
+    examples:
+      - command: usermod -aG docker alice
+        output: Adds alice to the docker group
+      - command: usermod -s /bin/zsh bob
+        output: Changes bob's shell to zsh
+      - command: usermod -L alice
+        output: Locks alice's account
+    notes:
+      - Requires `sudo` to execute.
+      - Use `-a` with `-G` to avoid overwriting groups.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/usermod.8.html
+        text: man usermod
+  - name: userdel
+    purpose: Delete a user account
+    options:
+      - flag: -r
+        description: Remove the user's home directory and mail spool
+      - flag: -f
+        description: Force deletion even if user is logged in
+    examples:
+      - command: userdel alice
+        output: Deletes user alice without removing home directory
+      - command: userdel -r bob
+        output: Deletes user bob and their home directory
+    notes:
+      - Requires `sudo` to execute.
+      - Check for running processes before deletion.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/userdel.8.html
+        text: man userdel
+  - name: groupadd
+    purpose: Create a new group
+    options:
+      - flag: -g <gid>
+        description: Specify group ID
+      - flag: -r
+        description: Create a system group
+      - flag: -f
+        description: Force creation, exit successfully if group exists
+    examples:
+      - command: groupadd developers
+        output: Creates a group named developers
+      - command: groupadd -g 1001 staff
+        output: Creates group staff with GID 1001
+    notes:
+      - Requires `sudo` to execute.
+      - Groups are stored in /etc/group.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/groupadd.8.html
+        text: man groupadd
+  - name: groupmod
+    purpose: Modify an existing group
+    options:
+      - flag: -n <newname>
+        description: Rename the group
+      - flag: -g <gid>
+        description: Change the group ID
+    examples:
+      - command: groupmod -n devteam developers
+        output: Renames group developers to devteam
+      - command: groupmod -g 1002 staff
+        output: Changes staff group’s GID to 1002
+    notes:
+      - Requires `sudo` to execute.
+      - Verify GID availability before changing.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/groupmod.8.html
+        text: man groupmod
+  - name: groupdel
+    purpose: Delete a group
+    options:
+      - flag: -f
+        description: Force deletion even if group is primary for users
+    examples:
+      - command: groupdel developers
+        output: Deletes the developers group
+      - command: groupdel -f staff
+        output: Forcefully deletes the staff group
+    notes:
+      - Requires `sudo` to execute.
+      - Cannot delete primary group of an existing user.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/groupdel.8.html
+        text: man groupdel
+  - name: passwd
+    purpose: Change user password
+    options:
+      - flag: -l
+        description: Lock the password
+      - flag: -u
+        description: Unlock the password
+      - flag: -d
+        description: Delete the password (empty)
+    examples:
+      - command: passwd alice
+        output: Prompts to set a new password for alice
+      - command: passwd -l bob
+        output: Locks bob’s password
+    notes:
+      - Requires `sudo` for other users.
+      - Passwords are stored in /etc/shadow.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/passwd.1.html
+        text: man passwd
+  - name: id
+    purpose: Display user and group information
+    options:
+      - flag: -u
+        description: Show user ID only
+      - flag: -g
+        description: Show primary group ID only
+      - flag: -G
+        description: Show all group IDs
+      - flag: -n
+        description: Show names instead of IDs
+    examples:
+      - command: id alice
+        output: Shows UID, GID, and groups for alice
+      - command: id -u bob
+        output: Shows bob’s user ID
+      - command: id -nG alice
+        output: Shows names of all groups alice belongs to
+    notes:
+      - Useful for verifying user permissions.
+      - No `sudo` needed for own user.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/id.1.html
+        text: man id
+  - name: whoami
+    purpose: Display the current user’s username
+    options: []
+    examples:
+      - command: whoami
+        output: Prints the current user’s username (e.g., alice)
+    notes:
+      - Simple command with no options.
+      - Useful in scripts to check user context.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/whoami.1.html
+        text: man whoami
+  - name: sudo
+    purpose: Execute commands as another user (typically root)
+    options:
+      - flag: -u <user>
+        description: Run as specified user
+      - flag: -i
+        description: Run an interactive login shell
+      - flag: -s
+        description: Run a shell as the target user
+    examples:
+      - command: sudo apt update
+        output: Runs apt update as root
+      - command: sudo -u bob whoami
+        output: Prints bob as the effective user
+    notes:
+      - Requires user to be in sudoers file.
+      - Use `visudo` to edit sudoers safely.
+    references:
+      - url: https://man7.org/linux/man-pages/man8/sudo.8.html
+        text: man sudo
+  - name: su
+    purpose: Switch to another user or root
+    options:
+      - flag: -l
+        description: Start a login shell
+      - flag: -c <command>
+        description: Execute a single command
+    examples:
+      - command: su - alice
+        output: Switches to user alice with login shell
+      - command: su -c "whoami" bob
+        output: Runs whoami as user bob
+    notes:
+      - Requires target user’s password.
+      - Use `sudo -i` for root without password prompt.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/su.1.html
+        text: man su
+  - name: chage
+    purpose: Change user password expiry information
+    options:
+      - flag: -l
+        description: List password expiry details
+      - flag: -E <date>
+        description: Set account expiration date (e.g., -E 2025-12-31)
+      - flag: -m <days>
+        description: Set minimum days between password changes
+      - flag: -M <days>
+        description: Set maximum days before password change
+    examples:
+      - command: chage -l alice
+        output: Shows password expiry details for alice
+      - command: chage -M 90 bob
+        output: Sets bob’s password to expire after 90 days
+      - command: chage -E 2025-12-31 alice
+        output: Sets alice’s account to expire on 2025-12-31
+    notes:
+      - Requires `sudo` to execute.
+      - Useful for managing account security policies.
+    references:
+      - url: https://man7.org/linux/man-pages/man1/chage.1.html
+        text: man chage

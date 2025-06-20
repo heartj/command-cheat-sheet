@@ -1,37 +1,36 @@
-# Linux `groupadd` Command
+# groupadd Command
 
-The `groupadd` command creates a new group in a Linux system, which can be assigned to users for access control.
+Create a new group
 
-[Back to User Commands](../user.md) | [Back to Main Index](../../README.md)
+[Back to User Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
-| Option | Purpose | Example |
-|--------|---------|---------|
-| `-g <gid>` | Specify group ID | `groupadd -g 1001 developers` (Create group with GID 1001) |
-| `-r` | Create a system group | `groupadd -r sysgroup` (Create system group) |
-| `-f` | Force creation (ignore existing group) | `groupadd -f developers` (Force create group) |
+| Option | Description |
+|--------|-------------|
+| `-g <gid>` | Specify group ID |
+| `-r` | Create a system group |
+| `-f` | Force creation, exit successfully if group exists |
 
 ## Examples
-1. **Create a new group**:  
-   `sudo groupadd developers`  
-   Creates group `developers` with an auto-assigned GID.
-2. **Create a system group**:  
-   `sudo groupadd -r sysgroup`  
-   Creates a system group with a low GID.
-3. **Create a group with specific GID**:  
-   `sudo groupadd -g 1001 developers`  
-   Creates `developers` with GID 1001.
-4. **Force create a group**:  
-   `sudo groupadd -f developers`  
-   Creates `developers` even if it exists.
+1. **Run command**:
+```bash
+groupadd developers
+```
+Output: Creates a group named developers
+
+2. **Run command**:
+```bash
+groupadd -g 1001 staff
+```
+Output: Creates group staff with GID 1001
+
 
 ## Notes
-- Requires root privileges (`sudo`).
-- Group info is stored in `/etc/group` and `/etc/gshadow`.
-- Use `usermod -aG` to add users to the group.
+- Requires `sudo` to execute.
+- Groups are stored in /etc/group.
 
 ## References
 - [man groupadd](https://man7.org/linux/man-pages/man8/groupadd.8.html)
 
-[Back to User Commands](../user.md) | [Back to Main Index](../../README.md)
+[Back to User Commands](../index.md) | [Back to Main Index](../../README.md)

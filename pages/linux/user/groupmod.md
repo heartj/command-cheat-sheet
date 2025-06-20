@@ -1,37 +1,35 @@
-# Linux `groupmod` Command
+# groupmod Command
 
-The `groupmod` command modifies attributes of an existing group, such as its name or group ID.
+Modify an existing group
 
-[Back to User Commands](../user.md) | [Back to Main Index](../../README.md)
+[Back to User Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
-| Option | Purpose | Example |
-|--------|---------|---------|
-| `-n <newname>` | Change group name | `groupmod -n devs developers` (Rename to `devs`) |
-| `-g <gid>` | Change group ID | `groupmod -g 1002 developers` (Change GID to 1002) |
-| `-o` | Allow non-unique GID | `groupmod -o -g 1001 developers` (Allow duplicate GID) |
+| Option | Description |
+|--------|-------------|
+| `-n <newname>` | Rename the group |
+| `-g <gid>` | Change the group ID |
 
 ## Examples
-1. **Rename a group**:  
-   `sudo groupmod -n devs developers`  
-   Renames group `developers` to `devs`.
-2. **Change a group’s GID**:  
-   `sudo groupmod -g 1002 developers`  
-   Changes GID of `developers` to 1002.
-3. **Allow non-unique GID**:  
-   `sudo groupmod -o -g 1001 developers`  
-   Sets `developers` to share GID 1001.
-4. **Verify changes**:  
-   `grep devs /etc/group`  
-   Checks updated group info.
+1. **Run command**:
+```bash
+groupmod -n devteam developers
+```
+Output: Renames group developers to devteam
+
+2. **Run command**:
+```bash
+groupmod -g 1002 staff
+```
+Output: Changes staff group’s GID to 1002
+
 
 ## Notes
-- Requires root privileges (`sudo`).
-- Changes affect files owned by the group; update permissions if needed.
-- Check `/etc/group` to verify modifications.
+- Requires `sudo` to execute.
+- Verify GID availability before changing.
 
 ## References
 - [man groupmod](https://man7.org/linux/man-pages/man8/groupmod.8.html)
 
-[Back to User Commands](../user.md) | [Back to Main Index](../../README.md)
+[Back to User Commands](../index.md) | [Back to Main Index](../../README.md)

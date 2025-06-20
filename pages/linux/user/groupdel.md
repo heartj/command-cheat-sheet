@@ -1,32 +1,34 @@
-# Linux `groupdel` Command
+# groupdel Command
 
-The `groupdel` command deletes an existing group from a Linux system.
+Delete a group
 
-[Back to User Commands](../user.md) | [Back to Main Index](../../README.md)
+[Back to User Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
-| Option | Purpose | Example |
-|--------|---------|---------|
-| (none) | Delete the specified group | `groupdel developers` (Delete `developers`) |
+| Option | Description |
+|--------|-------------|
+| `-f` | Force deletion even if group is primary for users |
 
 ## Examples
-1. **Delete a group**:  
-   `sudo groupdel developers`  
-   Removes the `developers` group.
-2. **Verify deletion**:  
-   `grep developers /etc/group`  
-   Confirms `developers` is removed.
-3. **Delete a system group**:  
-   `sudo groupdel sysgroup`  
-   Removes the system group `sysgroup`.
+1. **Run command**:
+```bash
+groupdel developers
+```
+Output: Deletes the developers group
+
+2. **Run command**:
+```bash
+groupdel -f staff
+```
+Output: Forcefully deletes the staff group
+
 
 ## Notes
-- Requires root privileges (`sudo`).
-- Cannot delete a group if it is a user’s primary group; change the user’s group first.
-- Check `/etc/group` to ensure deletion.
+- Requires `sudo` to execute.
+- Cannot delete primary group of an existing user.
 
 ## References
 - [man groupdel](https://man7.org/linux/man-pages/man8/groupdel.8.html)
 
-[Back to User Commands](../user.md) | [Back to Main Index](../../README.md)
+[Back to User Commands](../index.md) | [Back to Main Index](../../README.md)

@@ -1,32 +1,27 @@
-# Linux `whoami` Command
+# whoami Command
 
-The `whoami` command displays the username of the current effective user.
+Display the current user’s username
 
-[Back to User Commands](../user.md) | [Back to Main Index](../../README.md)
+[Back to User Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
-| Option | Purpose | Example |
-|--------|---------|---------|
-| (none) | Show current username | `whoami` (Display current user) |
+| Option | Description |
+|--------|-------------|
 
 ## Examples
-1. **Show current user**:  
-   `whoami`  
-   Outputs the current user’s username (e.g., `john`).
-2. **Use in scripts**:  
-   `echo "Current user is $(whoami)"`  
-   Prints the current username in a script.
-3. **Check after `su`**:  
-   `su john; whoami`  
-   Confirms the user is now `john`.
+1. **Run command**:
+```bash
+whoami
+```
+Output: Prints the current user’s username (e.g., alice)
+
 
 ## Notes
-- No root privileges required.
-- Useful for verifying the effective user in scripts or after `su`/`sudo`.
-- Similar to `id -un` but simpler.
+- Simple command with no options.
+- Useful in scripts to check user context.
 
 ## References
 - [man whoami](https://man7.org/linux/man-pages/man1/whoami.1.html)
 
-[Back to User Commands](../user.md) | [Back to Main Index](../../README.md)
+[Back to User Commands](../index.md) | [Back to Main Index](../../README.md)
