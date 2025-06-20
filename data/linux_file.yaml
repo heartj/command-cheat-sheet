@@ -1,0 +1,411 @@
+category: File
+description: Commands for managing files and directories
+commands:
+  - name: ls
+    purpose: List directory contents
+    options:
+      - flag: -l
+        description: Use long listing format
+      - flag: -a
+        description: Show hidden files
+      - flag: -h
+        description: Show human-readable file sizes
+      - flag: -R
+        description: List directories recursively
+    examples:
+      - command: ls -la
+        output: Lists all files, including hidden, in long format
+      - command: ls -lh /var
+        output: Lists /var contents with human-readable sizes
+      - command: ls -R ~/docs
+        output: Recursively lists all files in ~/docs
+    notes:
+      - "Hidden files start with: .bashrc"
+      - Combine flags (e.g., -lah) for multiple options
+    references:
+      - url: https://man7.org/linux/man-pages/man1/ls.1.html
+        text: man ls
+  - name: find
+    purpose: Search for files in a directory hierarchy
+    options:
+      - flag: -name <pattern>
+        description: Search by file name (e.g., -name "*.txt")
+      - flag: -type <type>
+        description: Specify file type (e.g., -type f for files)
+      - flag: -mtime <days>
+        description: Search by modification time (e.g., -mtime -7)
+      - flag: -exec <command>
+        description: Execute command on found files
+    examples:
+      - command: find /home -name "*.txt"
+        output: Finds all .txt files in /home
+      - command: find . -type d
+        output: Lists all directories in current directory
+      - command: find /var -mtime -7
+        output: Finds files modified in the last 7 days in /var
+      - command: find . -name "*.log" -exec rm {} \;
+        output: Deletes all .log files in current directory
+    notes:
+      - Use quotes for patterns with wildcards
+      - Requires `sudo` for restricted directories
+    references:
+      - url: https://man7.org/linux/man-pages/man1/find.1.html
+        text: man find
+  - name: cp
+    purpose: Copy files and directories
+    options:
+      - flag: -r
+        description: Copy directories recursively
+      - flag: -v
+        description: Verbose output, show copied files
+      - flag: -u
+        description: Copy only when source is newer
+      - flag: -p
+        description: Preserve file attributes
+    examples:
+      - command: cp file.txt /backup
+        output: Copies file.txt to /backup
+      - command: cp -r /docs /backup
+        output: Recursively copies /docs to /backup
+      - command: cp -uv *.jpg /photos
+        output: Copies newer .jpg files to /photos with verbose output
+    notes:
+      - Overwrites destination files by default
+      - Use `-i` for interactive confirmation
+    references:
+      - url: https://man7.org/linux/man-pages/man1/cp.1.html
+        text: man cp
+  - name: mv
+    purpose: Move or rename files and directories
+    options:
+      - flag: -v
+        description: Verbose output, show moved files
+      - flag: -u
+        description: Move only when source is newer
+      - flag: -i
+        description: Prompt before overwriting
+    examples:
+      - command: mv file.txt /backup
+        output: Moves file.txt to /backup
+      - command: mv oldname.txt newname.txt
+        output: Renames oldname.txt to newname.txt
+      - command: mv -vi *.jpg /photos
+        output: Moves .jpg files to /photos with confirmation
+    notes:
+      - Overwrites destination by default unless `-i` is used
+      - No recursive flag needed for directories
+    references:
+      - url: https://man7.org/linux/man-pages/man1/mv.1.html
+        text: man mv
+  - name: rm
+    purpose: Remove files or directories
+    options:
+      - flag: -r
+        description: Remove directories recursively
+      - flag: -f
+        description: Force removal without prompt
+      - flag: -v
+        description: Verbose output, show removed files
+      - flag: -i
+        description: Prompt before removal
+    examples:
+      - command: rm file.txt
+        output: Deletes file.txt
+      - command: rm -rf /tmp/file
+        output: Forcefully deletes /tmp/file and its contents
+      - command: rm -vi *.bak
+        output: Deletes .bak files with confirmation
+    notes:
+      - Use with caution; no undo for deleted files
+      - Requires `sudo` for protected files
+    references:
+      - url: https://man7.org/linux/man-pages/man1/rm.1.html
+        text: man rm
+  - name: tar
+    purpose: Archive files into a tarball or extract them
+    options:
+      - flag: -c
+        description: Create a new archive
+      - flag: -x
+        description: Extract files from an archive
+      - flag: -f <file>
+        description: Specify archive file name
+      - flag: -z
+        description: Use gzip compression
+      - flag: -v
+        description: Verbose output
+    examples:
+      - command: tar -czf backup.tar.gz /docs
+        output: Creates a compressed archive of /docs
+      - command: tar -xzf backup.tar.gz
+        output: Extracts backup.tar.gz to current directory
+      - command: tar -tvf backup.tar.gz
+        output: Lists contents of backup.tar.gz
+    notes:
+      - "Common extensions: .tar (uncompressed), .tar.gz (gzip)"
+      - Use `-j` for bzip2 compression
+    references:
+      - url: https://man7.org/linux/man-pages/man1/tar.1.html
+        text: man tar
+  - name: cat
+    purpose: Concatenate and display file content
+    options:
+      - flag: -n
+        description: Number all output lines
+      - flag: -b
+        description: Number non-blank lines
+      - flag: -s
+        description: Suppress repeated empty lines
+    examples:
+      - command: cat file.txt
+        output: Displays contents of file.txt
+      - command: cat -n file.txt
+        output: Displays file.txt with line numbers
+    notes:
+      - Use `less` or `more` for large files
+      - Can concatenate multiple files (e.g., cat file1.txt file2.txt)
+    references:
+      - url: https://man7.org/linux/man-pages/man1/cat.1.html
+        text: man cat
+  - name: touch
+    purpose: Create empty files or update timestamps
+    options:
+      - flag: -m
+        description: Update modification time only
+      - flag: -a
+        description: Update access time only
+      - flag: -t <time>
+        description: Set specific timestamp (e.g., -t 202301011200)
+    examples:
+      - command: touch file.txt
+        output: Creates file.txt or updates its timestamp
+      - command: touch -m file.txt
+        output: Updates modification time of file.txt
+    notes:
+      - Useful for creating placeholder files
+      - Timestamps affect `find -mtime`
+    references:
+      - url: https://man7.org/linux/man-pages/man1/touch.1.html
+        text: man touch
+  - name: mkdir
+    purpose: Create directories
+    options:
+      - flag: -p
+        description: Create parent directories as needed
+      - flag: -v
+        description: Verbose output, show created directories
+      - flag: -m <mode>
+        description: Set permissions (e.g., -m 755)
+    examples:
+      - command: mkdir newdir
+        output: Creates a directory named newdir
+      - command: mkdir -p /path/to/newdir
+        output: Creates newdir and parent directories if needed
+    notes:
+      - Fails if directory exists unless `-p` is used
+      - Default permissions depend on umask
+    references:
+      - url: https://man7.org/linux/man-pages/man1/mkdir.1.html
+        text: man mkdir
+  - name: rmdir
+    purpose: Remove empty directories
+    options:
+      - flag: -p
+        description: Remove parent directories if empty
+      - flag: -v
+        description: Verbose output, show removed directories
+    examples:
+      - command: rmdir empty_dir
+        output: Removes empty_dir if it is empty
+      - command: rmdir -p /path/to/empty_dir
+        output: Removes empty_dir and empty parent directories
+    notes:
+      - Fails for non-empty directories; use `rm -r` instead
+      - Safer than `rm -r` for directories
+    references:
+      - url: https://man7.org/linux/man-pages/man1/rmdir.1.html
+        text: man rmdir
+  - name: chmod
+    purpose: Change file permissions
+    options:
+      - flag: -R
+        description: Apply recursively to directories
+      - flag: -v
+        description: Verbose output, show changes
+      - flag: 755
+        description: Set permissions to rwxr-xr-x
+    examples:
+      - command: chmod 755 script.sh
+        output: Sets script.sh to rwxr-xr-x
+      - command: chmod -R u+w /docs
+        output: Adds write permission for user to /docs recursively
+    notes:
+      - "Numeric mode: r=4, w=2, x=1 (e.g., 755 = rwxr-xr-x)"
+      - "Symbolic mode: u=user, g=group, o=others"
+    references:
+      - url: https://man7.org/linux/man-pages/man1/chmod.1.html
+        text: man chmod
+  - name: chown
+    purpose: Change file ownership
+    options:
+      - flag: -R
+        description: Apply recursively to directories
+      - flag: -v
+        description: Verbose output, show changes
+      - flag: <user>:<group>
+        description: Specify owner and group
+    examples:
+      - command: chown alice file.txt
+        output: Changes owner of file.txt to alice
+      - command: chown -R alice:staff /docs
+        output: Changes owner and group of /docs recursively
+    notes:
+      - Requires `sudo` for non-owned files
+      - Use `ls -l` to verify ownership
+    references:
+      - url: https://man7.org/linux/man-pages/man1/chown.1.html
+        text: man chown
+  - name: ln
+    purpose: Create hard or symbolic links
+    options:
+      - flag: -s
+        description: Create a symbolic link
+      - flag: -f
+        description: Force creation, overwrite existing links
+      - flag: -v
+        description: Verbose output, show created links
+    examples:
+      - command: ln -s /data/file.txt link.txt
+        output: Creates a symbolic link link.txt to file.txt
+      - command: ln file.txt hardlink.txt
+        output: Creates a hard link hardlink.txt to file.txt
+    notes:
+      - Symbolic links can point to non-existent files
+      - Hard links require same filesystem
+    references:
+      - url: https://man7.org/linux/man-pages/man1/ln.1.html
+        text: man ln
+  - name: du
+    purpose: Estimate file and directory space usage
+    options:
+      - flag: -h
+        description: Human-readable sizes
+      - flag: -s
+        description: Summarize total size
+      - flag: -c
+        description: Show grand total
+      - flag: --max-depth=<n>
+        description: Limit directory depth
+    examples:
+      - command: du -sh /home
+        output: Shows total size of /home in human-readable format
+      - command: du -ch --max-depth=1 /var
+        output: Shows sizes of /var subdirectories with total
+    notes:
+      - Use with `sort -h` for sorted output
+      - Requires `sudo` for restricted directories
+    references:
+      - url: https://man7.org/linux/man-pages/man1/du.1.html
+        text: man du
+  - name: wc
+    purpose: Count lines, words, or characters in files
+    options:
+      - flag: -l
+        description: Count lines
+      - flag: -w
+        description: Count words
+      - flag: -c
+        description: Count bytes
+      - flag: -m
+        description: Count characters
+    examples:
+      - command: wc -l file.txt
+        output: Shows number of lines in file.txt
+      - command: wc file.txt
+        output: Shows lines, words, and bytes in file.txt
+    notes:
+      - Use with pipes (e.g., `ls | wc -l`) to count output
+      - Handles multiple files
+    references:
+      - url: https://man7.org/linux/man-pages/man1/wc.1.html
+        text: man wc
+  - name: head
+    purpose: Display the beginning of files
+    options:
+      - flag: -n <lines>
+        description: Show specified number of lines
+      - flag: -c <bytes>
+        description: Show specified number of bytes
+      - flag: -q
+        description: Quiet mode, suppress file names
+    examples:
+      - command: head -n 5 file.txt
+        output: Shows first 5 lines of file.txt
+      - command: head file1.txt file2.txt
+        output: Shows first 10 lines of each file
+    notes:
+      - Default is 10 lines
+      - Use with `tail` for specific ranges
+    references:
+      - url: https://man7.org/linux/man-pages/man1/head.1.html
+        text: man head
+  - name: tail
+    purpose: Display the end of files
+    options:
+      - flag: -n <lines>
+        description: Show specified number of lines
+      - flag: -f
+        description: Follow file changes in real-time
+      - flag: -c <bytes>
+        description: Show specified number of bytes
+    examples:
+      - command: tail -n 5 file.txt
+        output: Shows last 5 lines of file.txt
+      - command: tail -f /var/log/syslog
+        output: Monitors syslog in real-time
+    notes:
+      - Useful for log monitoring
+      - Use `Ctrl+C` to exit `-f` mode
+    references:
+      - url: https://man7.org/linux/man-pages/man1/tail.1.html
+        text: man tail
+  - name: zip
+    purpose: Create compressed ZIP archives
+    options:
+      - flag: -r
+        description: Recursively include directories
+      - flag: -v
+        description: Verbose output
+      - flag: -q
+        description: Quiet mode
+    examples:
+      - command: zip archive.zip file.txt
+        output: Creates archive.zip containing file.txt
+      - command: zip -r docs.zip /docs
+        output: Recursively archives /docs into docs.zip
+    notes:
+      - Requires `zip` package (`sudo apt install zip`)
+      - Use `unzip` to extract
+    references:
+      - url: https://man7.org/linux/man-pages/man1/zip.1.html
+        text: man zip
+  - name: unzip
+    purpose: Extract files from ZIP archives
+    options:
+      - flag: -l
+        description: List archive contents
+      - flag: -d <dir>
+        description: Extract to specified directory
+      - flag: -q
+        description: Quiet mode
+    examples:
+      - command: unzip archive.zip
+        output: Extracts archive.zip to current directory
+      - command: unzip -d /extract archive.zip
+        output: Extracts archive.zip to /extract
+    notes:
+      - Requires `unzip` package (`sudo apt install unzip`)
+      - Overwrites files unless `-n` is used
+    references:
+      - url: https://man7.org/linux/man-pages/man1/unzip.1.html
+        text: man unzip

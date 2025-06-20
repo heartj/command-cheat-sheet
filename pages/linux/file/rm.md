@@ -1,41 +1,43 @@
-# Linux `rm` Command
+# rm Command
 
-The `rm` command removes files or directories. It is used to delete unwanted files or directories, but requires caution as deletions are typically irreversible.
+Remove files or directories
 
-[Back to File Commands](../file.md) | [Back to Main Index](../../README.md)
+[Back to File Commands](./index.md) | [Back to Main Index](../../README.md)
 
 ## Common Options
 
-| Option | Purpose | Example |
-|--------|---------|---------|
-| `-r` | Remove directories recursively | `rm -r old_folder/` (Delete `old_folder` and contents) |
-| `-f` | Force deletion without prompting | `rm -f file.txt` (Delete without confirmation) |
-| `-i` | Prompt before each removal | `rm -i *.txt` (Prompt for each `.txt` file) |
-| `-v` | Verbose output (show deleted files) | `rm -v *.log` (Show each deleted file) |
-| `-d` | Remove empty directories | `rm -d empty_dir/` (Delete empty directory) |
-| `--no-preserve-root` | Allow deletion of `/` (dangerous) | `rm -r --no-preserve-root /` (Use with extreme caution) |
+| Option | Description |
+|--------|-------------|
+| `-r` | Remove directories recursively |
+| `-f` | Force removal without prompt |
+| `-v` | Verbose output, show removed files |
+| `-i` | Prompt before removal |
 
 ## Examples
-1. **Delete a single file**:  
-   `rm file.txt`  
-   Removes `file.txt` from the current directory.
-2. **Delete a directory recursively**:  
-   `rm -rf old_project/`  
-   Deletes `old_project` and all its contents without prompting.
-3. **Prompt before deletion**:  
-   `rm -i *.bak`  
-   Asks for confirmation before deleting each `.bak` file.
-4. **Delete empty directories**:  
-   `rm -d temp_dir/`  
-   Removes `temp_dir` if it is empty.
+1. **Run command**:
+```bash
+rm file.txt
+```
+Output: Deletes file.txt
+
+2. **Run command**:
+```bash
+rm -rf /tmp/file
+```
+Output: Forcefully deletes /tmp/file and its contents
+
+3. **Run command**:
+```bash
+rm -vi *.bak
+```
+Output: Deletes .bak files with confirmation
+
 
 ## Notes
-- Use `-i` in scripts to avoid accidental deletions.
-- Be extremely cautious with `rm -rf`, especially with wildcards or near `/`.
-- Deleted files are not sent to a recycle bin; consider using `trash-cli` for recoverable deletion.
+- Use with caution; no undo for deleted files
+- Requires `sudo` for protected files
 
 ## References
-- [GNU Coreutils: rm](https://www.gnu.org/software/coreutils/manual/html_node/rm-invocation.html)
 - [man rm](https://man7.org/linux/man-pages/man1/rm.1.html)
 
-[Back to File Commands](../file.md) | [Back to Main Index](../../README.md)
+[Back to File Commands](../index.md) | [Back to Main Index](../../README.md)

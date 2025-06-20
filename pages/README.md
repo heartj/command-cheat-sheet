@@ -7,7 +7,7 @@ Welcome to the Command Cheat Sheet! This is a collection of commonly used comman
 ### Linux Commands
 Linux commands are subdivided by function, covering system management, file operations, networking, and utilities.
 
-- **[File](./linux/file.md)**: File and directory operation commands
+- **[File](./linux/file/index.md)**: File and directory operation commands
   - `find`, `ls`, `cp`, `mv`, `rm`, `tar`
 - **[Network](./linux/network/index.md)**: Network-related commands
   - `curl`, `wget`, `ping`, `netstat`, `nslookup`, `dig`
